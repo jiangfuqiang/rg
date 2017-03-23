@@ -169,8 +169,8 @@ public class JavaControllerGen extends AbstractJavaGen{
 
                 sb.append(twoTab).append("String ").append(key).append("Str")
                         .append(" = request.getParameter(\"").append(key).append("\");\n");
-                if("String".equals(pkType)) {
-                    sb.append(oneTab).append(twoTab).append(aliasEntity).append(".").append(setFieldName).append("(");
+                if(clazz == String.class) {
+                    sb.append(twoTab).append(aliasEntity).append(".").append(setFieldName).append("(");
                     sb.append(parseField(key, clazz));
                     sb.append(");\n");
                 } else {

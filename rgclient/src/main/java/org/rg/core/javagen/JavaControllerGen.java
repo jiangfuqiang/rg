@@ -132,7 +132,7 @@ public class JavaControllerGen extends AbstractJavaGen{
         sb.append(twoTab).append("Map<String,Object> map = new HashMap<String,Object>();\n");
         if(StringUtils.isNotEmpty(pkName)) {
             sb.append(twoTab).append("String ").append(pkName).append("Str = request.getParameter(\"").append(javaGenConfig.getEntityPrimaryKeyName()).append("\");\n");
-            sb.append(twoTab).append(pkType).append(pkName).append(" = null;\n");
+            sb.append(twoTab).append(pkType).append(" ").append(pkName).append(" = null;\n");
             sb.append(twoTab).append("if (StringUtils.isNotEmpty(").append(pkName).append("Str)){\n");
             String idParsedVaue = parseField(pkName, entityFields.get(pkName));
             sb.append(oneTab).append(twoTab).append(pkName).append(" = ").append(idParsedVaue).append(";\n");

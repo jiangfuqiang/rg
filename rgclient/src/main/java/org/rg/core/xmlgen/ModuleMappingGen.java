@@ -73,7 +73,7 @@ public class ModuleMappingGen extends AbstractJavaGen{
 
 
         //findEntityById method
-        sb.append(oneTab).append("<select id=\"findEntityById\" resultType=\"").append(entityName)
+        sb.append(oneTab).append("<select id=\"find"+entityName+"ById\" resultType=\"").append(entityName)
                 .append("\"");
         if(StringUtils.isNotBlank(enityPKName)) {
             String pkType = this.getPKType();

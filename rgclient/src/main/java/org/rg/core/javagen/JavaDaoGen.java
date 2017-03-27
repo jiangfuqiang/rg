@@ -42,6 +42,9 @@ public class JavaDaoGen extends AbstractJavaGen {
         for(Map.Entry<String, Class> entry : entityFields.entrySet()) {
             String fieldName = entry.getKey();
             Object fieldType = entry.getValue();
+            if(fieldName.equals(javaGenConfig.getEntityPrimaryKeyName())) {
+                continue;
+            }
             String getFieldName = "get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
 
             findSb.append(twoTab).append("map.put(\"").append(fieldName).append("\"").append(",")

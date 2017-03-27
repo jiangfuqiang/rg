@@ -136,6 +136,7 @@ public class GenTest {
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
         imports.add("import java.util.HashMap;");
+        imports.add("import com.weidian.proxy.annotation.JsonRes;");
         imports.add("import org.springframework.beans.factory.annotation.Autowired;");
         imports.add("import org.springframework.util.Assert;");
         imports.add("import org.springframework.web.bind.annotation.RequestMapping;");

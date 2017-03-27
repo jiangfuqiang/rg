@@ -28,8 +28,9 @@ import java.util.*;
 public class GenTest {
 
     private static String path = "/Users/jiang/Documents/jiangblog";
-    private static String packgePath = "com.weidian.proxy.ad";
-
+    private static String packgePath = "com.weidian.proxy.cms";
+    private static String projectName = packgePath.substring(packgePath.lastIndexOf('.')+1);
+    private static String prefixPackage = packgePath.substring(0, packgePath.lastIndexOf('.'));
     public static String confile = "druid.properties";
     public static Properties p = null;
 
@@ -129,9 +130,9 @@ public class GenTest {
         String fileName = entityName+"";
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+packgePath+".model."+entityName+";");
+        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
         imports.add("import "+packgePath+".service."+entityName+"Service;");
-        imports.add("import "+packgePath+".utils.DateUtils;");
+        imports.add("import "+prefixPackage+".utils.DateUtils;");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
         imports.add("import java.util.HashMap;");
@@ -177,7 +178,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+packgePath+".model."+entityName+";");
+        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
         imports.add("import "+packgePath+".dao."+entityName+"Dao;");
         imports.add("import "+packgePath+".service."+entityName+"Service;");
         imports.add("import java.util.List;");
@@ -222,7 +223,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+packgePath+".model."+fileName+";");
+        imports.add("import "+prefixPackage+".model."+projectName+"."+fileName+";");
         imports.add("import java.util.List;");
 
         List<String> descs = new ArrayList<String>();
@@ -254,7 +255,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+packgePath+".model."+entityName+";");
+        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
         imports.add("import "+packgePath+".mapper."+entityName+"Mapper;");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
@@ -295,7 +296,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+packgePath+".model."+entityName+";");
+        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
 

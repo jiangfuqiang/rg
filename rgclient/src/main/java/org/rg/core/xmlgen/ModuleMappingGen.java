@@ -56,7 +56,8 @@ public class ModuleMappingGen extends AbstractJavaGen{
 
 
         //list method
-        sb.append(oneTab).append("<select id=\"list\" resultType=\""+entityName).append("\" parameterType=\"Map\">\n");
+        sb.append(oneTab).append("<select id=\"list\" resultType=\""+entityName).append("\" resultMap=\"")
+                .append(entityName).append("\" parameterType=\"Map\">\n");
         sb.append(twoTab).append("select * from `").append(tableName).append("` where 1 = 1 \n");
         for(Map.Entry<String, Class> entry : entityFields.entrySet()) {
             String key = entry.getKey();
@@ -73,7 +74,8 @@ public class ModuleMappingGen extends AbstractJavaGen{
 
 
         //findEntityById method
-        sb.append(oneTab).append("<select id=\"find"+entityName+"ById\" resultType=\"").append(entityName)
+        sb.append(oneTab).append("<select id=\"find"+entityName+"ById\" resultType=\"").append(entityName).append("\" resultMap=\"")
+                .append(entityName)
                 .append("\"");
         if(StringUtils.isNotBlank(enityPKName)) {
             String pkType = this.getPKType();

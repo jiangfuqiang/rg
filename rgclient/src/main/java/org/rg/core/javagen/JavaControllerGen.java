@@ -153,8 +153,23 @@ public class JavaControllerGen extends AbstractJavaGen{
         sb.append(oneTab).append("public ").append(entityName).append(" parseRequestToEntity(HttpServletRequest request) {\n");
         sb.append(twoTab).append(entityName).append(" ").append(aliasEntity).append(" = ")
                 .append("new ").append(entityName).append("();\n");
+
+        if(StringUtils.isNotBlank(pkName)) {
+            sb.append(twoTab).append("String ").append(pkName).append("Str")
+                    .append(" = request.getParameter(\"").append(pkName).append("\");\n");
+            Class clazz = entityFields.get(pkName);
+            String setFieldName = "set" + Character.toUpperCase(pkName.charAt(0)) + pkName.substring(1);
+            sb.append(twoTab).append("if (StringUtils.isNotEmpty(").append(pkName).append("Str)){\n");
+            sb.append(oneTab).append(twoTab).append(aliasEntity).append(".").append(setFieldName).append("(");
+            sb.append(parseField(pkName, clazz));
+            sb.append(");\n");
+            sb.append(twoTab).append("}\n");
+        }
         for(Map.Entry<String, Class> entry : entityFields.entrySet()) {
             String key = entry.getKey();
+            if(StringUtils.isNotBlank(pkName) && key.equals(pkName)) {
+                continue;
+            }
             Class clazz = entry.getValue();
             String setFieldName = "set" + Character.toUpperCase(key.charAt(0)) + key.substring(1);
             if(key.toLowerCase().equals("createtime") ||
@@ -162,9 +177,13 @@ public class JavaControllerGen extends AbstractJavaGen{
                     key.toLowerCase().equals("modifytime") ||
                     key.toLowerCase().equals("updatetime") ||
                     key.toLowerCase().equals("lastupdatetime")) {
-                sb.append(twoTab).append(aliasEntity).append(".").append(setFieldName).append("(");
-                parseTimeField(sb,key, clazz);
-                sb.append(");\n");
+                if(StringUtils.isNotBlank(pkName)) {
+                    sb.append(twoTab).append("if (StringUtils.isNotEmpty(").append(pkName).append("Str)){\n");
+                    sb.append(oneTab).append(twoTab).append(aliasEntity).append(".").append(setFieldName).append("(");
+                    parseTimeField(sb,key, clazz);
+                    sb.append(");\n");
+                    sb.append(twoTab).append("}\n");
+                }
             } else {
 
                 sb.append(twoTab).append("String ").append(key).append("Str")

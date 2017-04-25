@@ -150,7 +150,7 @@ public class GenTest {
         List<String> imports = new ArrayList<String>();
         imports.add("import "+packgePath+".model"+"."+entityName+";");
         imports.add("import "+packgePath+".service."+entityName+"Service;");
-        imports.add("import "+prefixPackage+".utils.DateUtils;");
+        imports.add("import "+packgePath+".utils.DateUtils;");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
         imports.add("import java.util.HashMap;");

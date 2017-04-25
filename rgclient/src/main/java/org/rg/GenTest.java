@@ -21,6 +21,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.util.*;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by jiang on 17/1/18.
@@ -28,7 +32,7 @@ import java.util.*;
 public class GenTest {
 
     private static String path = "/Users/jiang/Documents/jiangblog";
-    private static String packgePath = "com.weidian.proxy.cms";
+    private static String packgePath = "com.dcs";
     private static String projectName = packgePath.substring(packgePath.lastIndexOf('.')+1);
     private static String prefixPackage = packgePath.substring(0, packgePath.lastIndexOf('.'));
     public static String confile = "druid.properties";
@@ -92,10 +96,23 @@ public class GenTest {
             testJavaServiceInterface(fieldToColumn, feidls,entityName,table,pkId, entityPkName);
             testJavaService(fieldToColumn, feidls,entityName,table,pkId, entityPkName);
             testJavaController(fieldToColumn, feidls,entityName,table,pkId, entityPkName);
+
+//            packCode("/Users/jiang/Documents/jingblog.zip");
         }
 
     }
 
+    public static void packCode(String storePath)throws IOException {
+        GZIPOutputStream zipOutputStream = new GZIPOutputStream(new FileOutputStream(new File(storePath)));
+        GZIPInputStream gzipInputStream = new GZIPInputStream(new FileInputStream(new File(path)));
+        byte[] buffer = new byte[1024];
+        while(gzipInputStream.read(buffer) != -1) {
+            zipOutputStream.write(buffer);
+        }
+        zipOutputStream.flush();
+        zipOutputStream.close();
+        gzipInputStream.close();
+    }
 
     public static void testModuleMapper(Map<String, String> fieldToColumn, Map<String, Class> fields,
                                         String entityName, String tableName, String pkId, String entityPkeyName) throws IOException{
@@ -122,7 +139,8 @@ public class GenTest {
 
         AbstractJavaGen javaEntityGen = new ModuleMappingGen(javaGenConfig,fields);
         javaEntityGen.gen();
-    }
+    }s
+
 
     public static void testJavaController(Map<String, String> fieldToColumn, Map<String, Class> fields,
                                           String entityName, String tableName, String pkId, String entityPkeyName) throws IOException{
@@ -130,16 +148,17 @@ public class GenTest {
         String fileName = entityName+"";
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
+        imports.add("import "+packgePath+".model"+"."+entityName+";");
         imports.add("import "+packgePath+".service."+entityName+"Service;");
         imports.add("import "+prefixPackage+".utils.DateUtils;");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
         imports.add("import java.util.HashMap;");
-        imports.add("import com.weidian.proxy.annotation.JsonRes;");
+//        imports.add("import com.weidian.proxy.annotation.JsonRes;");
         imports.add("import org.springframework.beans.factory.annotation.Autowired;");
         imports.add("import org.springframework.util.Assert;");
         imports.add("import org.springframework.web.bind.annotation.RequestMapping;");
+        imports.add("import org.springframework.web.bind.annotation.ResponseBody;");
         imports.add("import javax.servlet.http.HttpServletRequest;");
         imports.add("import org.springframework.web.bind.annotation.RequestMethod;");
         imports.add("import org.apache.commons.lang3.StringUtils;");
@@ -179,7 +198,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
+        imports.add("import "+packgePath+".model"+"."+entityName+";");
         imports.add("import "+packgePath+".dao."+entityName+"Dao;");
         imports.add("import "+packgePath+".service."+entityName+"Service;");
         imports.add("import java.util.List;");
@@ -224,7 +243,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+prefixPackage+".model."+projectName+"."+fileName+";");
+        imports.add("import "+packgePath+".model"+"."+fileName+";");
         imports.add("import java.util.List;");
 
         List<String> descs = new ArrayList<String>();
@@ -256,7 +275,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
+        imports.add("import "+packgePath+".model"+"."+entityName+";");
         imports.add("import "+packgePath+".mapper."+entityName+"Mapper;");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
@@ -297,7 +316,7 @@ public class GenTest {
         String fileName = entityName;
         String fileSuffix = "java";
         List<String> imports = new ArrayList<String>();
-        imports.add("import "+prefixPackage+".model."+projectName+"."+entityName+";");
+        imports.add("import "+packgePath+".model"+"."+entityName+";");
         imports.add("import java.util.List;");
         imports.add("import java.util.Map;");
 

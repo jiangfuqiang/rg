@@ -139,7 +139,7 @@ public class GenTest {
 
         AbstractJavaGen javaEntityGen = new ModuleMappingGen(javaGenConfig,fields);
         javaEntityGen.gen();
-    }s
+    }
 
 
     public static void testJavaController(Map<String, String> fieldToColumn, Map<String, Class> fields,

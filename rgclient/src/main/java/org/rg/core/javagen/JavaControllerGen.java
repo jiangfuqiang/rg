@@ -48,7 +48,7 @@ public class JavaControllerGen extends AbstractJavaGen{
 
         //list method
         sb.append(oneTab).append("@RequestMapping(value=\"list\", method={RequestMethod.GET,RequestMethod.POST})\n");
-        sb.append(oneTab).append("@ResponseBody\n");
+//        sb.append(oneTab).append("@ResponseBody\n");
         appendMethodAnno(sb);
         sb.append(oneTab).append("public Map<String, Object> list(HttpServletRequest request) {\n");
         sb.append(twoTab).append("Map<String,Object> map = new HashMap<String,Object>();\n");
@@ -80,7 +80,7 @@ public class JavaControllerGen extends AbstractJavaGen{
 
         //findEntityById method
         sb.append(oneTab).append("@RequestMapping(value=\"find").append(entityName).append("ById\", method={RequestMethod.GET,RequestMethod.POST})\n");
-        sb.append(oneTab).append("@ResponseBody\n");
+//        sb.append(oneTab).append("@ResponseBody\n");
         appendMethodAnno(sb);
         sb.append(oneTab).append("public Map<String, Object> find").append(entityName).append("ById(HttpServletRequest request){\n");
         sb.append(twoTab).append("Map<String,Object> map = new HashMap<String,Object>();\n");
@@ -110,7 +110,7 @@ public class JavaControllerGen extends AbstractJavaGen{
 
         //save method
         sb.append(oneTab).append("@RequestMapping(value=\"save\", method={RequestMethod.POST})\n");
-        sb.append(oneTab).append("@ResponseBody\n");
+//        sb.append(oneTab).append("@ResponseBody\n");
         appendMethodAnno(sb);
         sb.append(oneTab).append("public Map<String, Object> save(HttpServletRequest request){\n");
         sb.append(twoTab).append("Map<String,Object> map = new HashMap<String,Object>();\n");
@@ -125,7 +125,8 @@ public class JavaControllerGen extends AbstractJavaGen{
 
         //update method
         sb.append(oneTab).append("@RequestMapping(value=\"update\", method={RequestMethod.POST})\n");
-        sb.append(oneTab).append("@ResponseBody\n");
+//        sb.append(oneTab).append("@ResponseBody\n");
+        appendMethodAnno(sb);
         sb.append(oneTab).append("public Map<String, Object> update(HttpServletRequest request){\n");
         sb.append(twoTab).append("Map<String,Object> map = new HashMap<String,Object>();\n");
         sb.append(twoTab).append(entityName).append(" ").append(aliasEntity).append(" = ")
@@ -139,7 +140,7 @@ public class JavaControllerGen extends AbstractJavaGen{
 
         //delete method
         sb.append(oneTab).append("@RequestMapping(value=\"delete\", method={RequestMethod.GET,RequestMethod.POST})\n");
-        sb.append(oneTab).append("@ResponseBody\n");
+//        sb.append(oneTab).append("@ResponseBody\n");
         appendMethodAnno(sb);
         sb.append(oneTab).append("public Map<String, Object> delete(HttpServletRequest request){\n");
         sb.append(twoTab).append("Map<String,Object> map = new HashMap<String,Object>();\n");

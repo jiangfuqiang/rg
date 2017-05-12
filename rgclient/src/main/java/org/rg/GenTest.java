@@ -21,9 +21,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Connection;
 import java.util.*;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -97,21 +97,39 @@ public class GenTest {
             testJavaService(fieldToColumn, feidls,entityName,table,pkId, entityPkName);
             testJavaController(fieldToColumn, feidls,entityName,table,pkId, entityPkName);
 
-//            packCode("/Users/jiang/Documents/jingblog.zip");
+            ZipOutputStream zipOutputStream = new ZipOutputStream(
+                    new FileOutputStream(new File(path+"_1.zip")));
+            File file = new File(path);
+            packCode(file,zipOutputStream,"");
+            zipOutputStream.close();
+
         }
 
     }
 
-    public static void packCode(String storePath)throws IOException {
-        GZIPOutputStream zipOutputStream = new GZIPOutputStream(new FileOutputStream(new File(storePath)));
-        GZIPInputStream gzipInputStream = new GZIPInputStream(new FileInputStream(new File(path)));
-        byte[] buffer = new byte[1024];
-        while(gzipInputStream.read(buffer) != -1) {
-            zipOutputStream.write(buffer);
+    public static void packCode(File file,ZipOutputStream zipOutputStream, String parentPath)throws IOException {
+
+
+        if(file.isDirectory()) {
+            File[] files = file.listFiles();
+            if(files.length > 0) {
+                parentPath += file.getName() + File.separator;
+                for(File f : files) {
+                    packCode(f,zipOutputStream,parentPath);
+                }
+            }
+        } else {
+            FileInputStream gzipInputStream = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            ZipEntry ze = new ZipEntry(parentPath +file.getName());
+            zipOutputStream.putNextEntry(ze);
+            int len = -1;
+            while ((len = gzipInputStream.read(buffer)) != -1) {
+                zipOutputStream.write(buffer,0,len);
+                zipOutputStream.flush();
+            }
+            gzipInputStream.close();
         }
-        zipOutputStream.flush();
-        zipOutputStream.close();
-        gzipInputStream.close();
     }
 
     private static void copyCommonClass(String entityName, String tableName) {
@@ -170,6 +188,7 @@ public class GenTest {
 
         //接口方法上额外的公共注解
         List<String> methodAnno = new ArrayList<String>();
+        methodAnno.add("@ResponseBody");
 
 
         Map<String, String> autowiredClass = new HashMap<String, String>();

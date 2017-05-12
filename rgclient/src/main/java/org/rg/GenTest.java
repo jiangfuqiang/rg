@@ -114,6 +114,10 @@ public class GenTest {
         gzipInputStream.close();
     }
 
+    private static void copyCommonClass(String entityName, String tableName) {
+
+    }
+
     public static void testModuleMapper(Map<String, String> fieldToColumn, Map<String, Class> fields,
                                         String entityName, String tableName, String pkId, String entityPkeyName) throws IOException{
         JavaGenConfig javaGenConfig = new JavaGenConfig();
@@ -164,6 +168,10 @@ public class GenTest {
         imports.add("import org.apache.commons.lang3.StringUtils;");
         imports.add("import org.springframework.stereotype.Controller;");
 
+        //接口方法上额外的公共注解
+        List<String> methodAnno = new ArrayList<String>();
+
+
         Map<String, String> autowiredClass = new HashMap<String, String>();
         autowiredClass.put(entityName+"Service", toFirstLetterLow(entityName) +"Service");
 
@@ -188,7 +196,7 @@ public class GenTest {
 
         javaGenConfig.setFieldToColumn(fieldToColumn);
 
-        AbstractJavaGen javaEntityGen = new JavaControllerGen(javaGenConfig,fields);
+        AbstractJavaGen javaEntityGen = new JavaControllerGen(javaGenConfig,fields,methodAnno);
         javaEntityGen.gen();
     }
 

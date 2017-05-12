@@ -16,7 +16,7 @@ import java.util.Date;
 public class DBFactory {
 
     private DruidDataSource druidDataSource = null;
-    public DBFactory builder(Properties params){
+    public static DBFactory builder(Properties params){
         return new DBFactory(params);
     }
 

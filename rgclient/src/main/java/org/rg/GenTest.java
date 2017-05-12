@@ -64,8 +64,7 @@ public class GenTest {
 
     public static void main(String[] args) throws Exception{
 
-        DBFactory dbFactory1 = new DBFactory();
-        DBFactory dbFactory = dbFactory1.builder(p);
+        DBFactory dbFactory = DBFactory.builder(p);
         Connection connection = dbFactory.createConnection();
         List<String> tables = dbFactory.listTables(connection);
         System.out.println(tables.toString());
